@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:expoloredz_flutter/screens/login_screen.dart';
+import 'package:expoloredz_flutter/screens/signup_screen.dart';
 import 'package:expoloredz_flutter/component/constants.dart';
+import 'package:expoloredz_flutter/component/logo_image.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,13 +19,15 @@ class _SplashScreenState
     Future.delayed(
       AppConstants.splashDuration,
       () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                const LoginScreen(),
-          ),
-        );
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const SignUpScreen(),
+            ),
+          );
+        }
       },
     );
   }
@@ -38,10 +41,7 @@ class _SplashScreenState
           mainAxisAlignment:
               MainAxisAlignment.center,
           children: [
-            Image.asset(
-              AppConstants.logoAsset,
-              height: 120,
-            ),
+            const LogoImage(height: 120),
             const SizedBox(height: 40),
             SizedBox(
               width: 50,
