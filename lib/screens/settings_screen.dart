@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expoloredz_flutter/component/app_drawer.dart';
+import 'package:expoloredz_flutter/component/app_background.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -9,7 +10,9 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
       drawer: const AppDrawer(selectedItem: 'settings'),
-      body: const Center(child: Text('Settings Screen')),
+      body: AppBackground(
+        child: const Center(child: Text('Coming soon!')),
+      ),
     );
   }
 }

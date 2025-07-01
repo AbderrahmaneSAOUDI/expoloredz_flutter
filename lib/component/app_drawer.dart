@@ -9,7 +9,7 @@ import 'package:expoloredz_flutter/screens/login_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final String selectedItem;
-  const AppDrawer({Key? key, required this.selectedItem}) : super(key: key);
+  const AppDrawer({super.key, required this.selectedItem});
 
   @override
   Widget build(BuildContext context) {

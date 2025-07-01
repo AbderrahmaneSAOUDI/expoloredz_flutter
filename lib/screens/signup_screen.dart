@@ -7,7 +7,8 @@ import 'package:expoloredz_flutter/component/primary_button.dart';
 import 'package:expoloredz_flutter/component/auth_navigation_text.dart';
 import 'package:expoloredz_flutter/component/divider_with_text.dart';
 import 'package:expoloredz_flutter/component/logo_image.dart';
-import 'package:expoloredz_flutter/screens/home_screen.dart';
+import 'package:expoloredz_flutter/screens/opportunities_screen.dart';
+import 'package:expoloredz_flutter/component/app_background.dart';
 
 enum UserType { volunteer, organizer }
 
@@ -15,21 +16,15 @@ class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() =>
-      _SignUpScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState
-    extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController =
-      TextEditingController();
-  final TextEditingController
-  _usernameController = TextEditingController();
-  final TextEditingController
-  _passwordController = TextEditingController();
-  final TextEditingController
-  _confirmPasswordController =
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   String? _emailErrorText;
@@ -48,45 +43,33 @@ class _SignUpScreenState
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(
-      context,
-    ).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: AppBackground(
+        child: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ), // Top padding for notch
+                SizedBox(height: screenHeight * 0.05), // Top padding for notch
                 const LogoImage(height: 128.0),
                 const SizedBox(height: 16.0),
                 Text(
                   'Your journey starts here',
-                  style: AppConstants
-                      .headingTextStyle
-                      .copyWith(
-                        color: AppConstants
-                            .secondaryColor,
-                      ),
+                  style: AppConstants.headingTextStyle.copyWith(
+                    color: AppConstants.secondaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'Take the first step',
-                  style: AppConstants
-                      .headingTextStyle
-                      .copyWith(
-                        color: AppConstants
-                            .secondaryColor,
-                      ),
+                  style: AppConstants.headingTextStyle.copyWith(
+                    color: AppConstants.secondaryColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40.0),
@@ -95,150 +78,106 @@ class _SignUpScreenState
                   child: Column(
                     children: [
                       CustomTextField(
-                        controller:
-                            _emailController,
+                        controller: _emailController,
                         hintText: 'Email',
-                        icon: Icons
-                            .email_outlined,
-                        errorText:
-                            _emailErrorText,
+                        icon: Icons.email_outlined,
+                        errorText: _emailErrorText,
                         onChanged: (value) {
                           setState(() {
-                            _emailErrorText =
-                                _emailController
-                                    .text
-                                    .isEmpty
+                            _emailErrorText = _emailController.text.isEmpty
                                 ? 'Please enter your email'
                                 : !RegExp(
                                     r'^[^@]+@[^@]+\.[^@]+',
-                                  ).hasMatch(
-                                    value,
-                                  )
+                                  ).hasMatch(value)
                                 ? 'Please enter a valid email'
                                 : null;
                           });
                         },
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          if (!RegExp(
-                            r'^[^@]+@[^@]+\.[^@]+',
-                          ).hasMatch(value)) {
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                             return 'Please enter a valid email';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
+                      const SizedBox(height: 20.0),
                       CustomTextField(
-                        controller:
-                            _usernameController,
+                        controller: _usernameController,
                         hintText: 'Username',
-                        icon: Icons
-                            .person_outline,
-                        errorText:
-                            _usernameErrorText,
+                        icon: Icons.person_outline,
+                        errorText: _usernameErrorText,
                         onChanged: (value) {
                           setState(() {
                             _usernameErrorText =
-                                _usernameController
-                                    .text
-                                    .isEmpty
+                                _usernameController.text.isEmpty
                                 ? 'Please enter a username'
-                                : value.length <
-                                      3
+                                : value.length < 3
                                 ? 'Username must be at least 3 characters'
                                 : null;
                           });
                         },
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter a username';
                           }
-                          if (value.length <
-                              3) {
+                          if (value.length < 3) {
                             return 'Username must be at least 3 characters';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
+                      const SizedBox(height: 20.0),
                       CustomTextField(
-                        controller:
-                            _passwordController,
+                        controller: _passwordController,
                         hintText: 'Password',
-                        icon:
-                            Icons.lock_outline,
+                        icon: Icons.lock_outline,
                         obscureText: true,
-                        errorText:
-                            _passwordErrorText,
+                        errorText: _passwordErrorText,
                         onChanged: (value) {
                           setState(() {
                             _passwordErrorText =
-                                _passwordController
-                                    .text
-                                    .isEmpty
+                                _passwordController.text.isEmpty
                                 ? 'Please enter a password'
-                                : value.length <
-                                      6
+                                : value.length < 6
                                 ? 'Password must be at least 6 characters'
                                 : null;
                           });
                         },
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter a password';
                           }
-                          if (value.length <
-                              6) {
+                          if (value.length < 6) {
                             return 'Password must be at least 6 characters';
                           }
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
+                      const SizedBox(height: 20.0),
                       CustomTextField(
-                        controller:
-                            _confirmPasswordController,
-                        hintText:
-                            'Confirm Password',
-                        icon:
-                            Icons.lock_outline,
+                        controller: _confirmPasswordController,
+                        hintText: 'Confirm Password',
+                        icon: Icons.lock_outline,
                         obscureText: true,
-                        errorText:
-                            _confirmPasswordErrorText,
+                        errorText: _confirmPasswordErrorText,
                         onChanged: (value) {
                           setState(() {
                             _confirmPasswordErrorText =
-                                _confirmPasswordController
-                                    .text
-                                    .isEmpty
+                                _confirmPasswordController.text.isEmpty
                                 ? 'Please confirm your password'
-                                : value !=
-                                      _passwordController
-                                          .text
+                                : value != _passwordController.text
                                 ? 'Passwords do not match'
                                 : null;
                           });
                         },
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please confirm your password';
                           }
-                          if (value !=
-                              _passwordController
-                                  .text) {
+                          if (value != _passwordController.text) {
                             return 'Passwords do not match';
                           }
                           return null;
@@ -253,8 +192,7 @@ class _SignUpScreenState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const HomeScreen(),
+                        builder: (context) => const OpportunitiesScreen(),
                       ),
                     );
                   },
@@ -263,120 +201,81 @@ class _SignUpScreenState
                     onPressed: () {
                       // Manually trigger validation for all fields to update error states
                       setState(() {
-                        _emailErrorText =
-                            _emailController
-                                .text
-                                .isEmpty
+                        _emailErrorText = _emailController.text.isEmpty
                             ? 'Please enter your email'
                             : !RegExp(
                                 r'^[^@]+@[^@]+\.[^@]+',
-                              ).hasMatch(
-                                _emailController
-                                    .text,
-                              )
+                              ).hasMatch(_emailController.text)
                             ? 'Please enter a valid email'
                             : null;
-                        _usernameErrorText =
-                            _usernameController
-                                .text
-                                .isEmpty
+                        _usernameErrorText = _usernameController.text.isEmpty
                             ? 'Please enter a username'
-                            : _usernameController
-                                      .text
-                                      .length <
-                                  3
+                            : _usernameController.text.length < 3
                             ? 'Username must be at least 3 characters'
                             : null;
-                        _passwordErrorText =
-                            _passwordController
-                                .text
-                                .isEmpty
+                        _passwordErrorText = _passwordController.text.isEmpty
                             ? 'Please enter a password'
-                            : _passwordController
-                                      .text
-                                      .length <
-                                  6
+                            : _passwordController.text.length < 6
                             ? 'Password must be at least 6 characters'
                             : null;
                         _confirmPasswordErrorText =
-                            _confirmPasswordController
-                                .text
-                                .isEmpty
+                            _confirmPasswordController.text.isEmpty
                             ? 'Please confirm your password'
-                            : _confirmPasswordController
-                                      .text !=
-                                  _passwordController
-                                      .text
+                            : _confirmPasswordController.text !=
+                                  _passwordController.text
                             ? 'Passwords do not match'
                             : null;
                       });
 
-                      if (_formKey.currentState!
-                          .validate()) {
+                      if (_formKey.currentState!.validate()) {
                         // Process data
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Processing Data',
-                            ),
-                          ),
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
                         );
                       }
                     },
                   ),
                 ),
                 const SizedBox(height: 30.0),
-                const DividerWithText(
-                  text: 'or',
-                ),
+                const DividerWithText(text: 'or'),
                 const SizedBox(height: 30.0),
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment
-                          .spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SocialIconButton(
                       icon: Icons.facebook,
-                      color: AppConstants
-                          .primaryColor,
+                      color: AppConstants.primaryColor,
                       onPressed: () {},
                     ), // Facebook
                     SocialIconButton(
                       icon: Icons.apple,
-                      color: AppConstants
-                          .primaryColor,
+                      color: AppConstants.primaryColor,
                       onPressed: () {},
                     ), // Apple
                     SocialIconButton(
                       icon: Icons.g_mobiledata,
-                      color: AppConstants
-                          .primaryColor,
+                      color: AppConstants.primaryColor,
                       onPressed: () {},
                     ), // Google (using g_mobiledata as a placeholder)
                   ],
                 ),
                 const SizedBox(height: 40.0),
                 AuthNavigationText(
-                  leadingText:
-                      'Already have an account? ',
+                  leadingText: 'Already have an account? ',
                   buttonText: 'Sign in',
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const LoginScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     );
                   },
                 ),
-                SizedBox(
-                  height: screenHeight * 0.05,
-                ), // Bottom padding
+                SizedBox(height: screenHeight * 0.05), // Bottom padding
               ],
             ),
+          ),
           ),
         ),
       ),

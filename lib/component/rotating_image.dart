@@ -7,12 +7,12 @@ class RotatingImage extends StatefulWidget {
   final Duration duration;
 
   const RotatingImage({
-    Key? key,
+    super.key,
     required this.imagePath,
     this.width = 50,
     this.height = 50,
     this.duration = const Duration(seconds: 2),
-  }) : super(key: key);
+  });
 
   @override
   State<RotatingImage> createState() =>

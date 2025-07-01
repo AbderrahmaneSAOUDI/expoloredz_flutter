@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:expoloredz_flutter/component/app_drawer.dart';
+import 'package:expoloredz_flutter/component/app_background.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,7 +10,9 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
       drawer: const AppDrawer(selectedItem: 'profile'),
-      body: const Center(child: Text('Profile Screen')),
+      body: AppBackground(
+        child: const Center(child: Text('Coming soon!')),
+      ),
     );
   }
 }
