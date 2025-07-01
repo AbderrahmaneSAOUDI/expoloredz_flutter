@@ -7,6 +7,7 @@ import 'package:expoloredz_flutter/component/primary_button.dart';
 import 'package:expoloredz_flutter/component/auth_navigation_text.dart';
 import 'package:expoloredz_flutter/component/divider_with_text.dart';
 import 'package:expoloredz_flutter/component/logo_image.dart';
+import 'package:expoloredz_flutter/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -135,50 +136,27 @@ class _LoginScreenState
                   ),
                 ),
                 const SizedBox(height: 40.0),
-                PrimaryButton(
-                  text: 'Sign in',
-                  onPressed: () {
-                    setState(() {
-                      _emailErrorText =
-                          _emailController
-                              .text
-                              .isEmpty
-                          ? 'Please enter your email'
-                          : !RegExp(
-                              r'^[^@]+@[^@]+\.[^@]+',
-                            ).hasMatch(
-                              _emailController
-                                  .text,
-                            )
-                          ? 'Please enter a valid email'
-                          : null;
-                      _passwordErrorText =
-                          _passwordController
-                              .text
-                              .isEmpty
-                          ? 'Please enter your password'
-                          : _passwordController
-                                    .text
-                                    .length <
-                                6
-                          ? 'Password must be at least 6 characters'
-                          : null;
-                    });
-
-                    if (_formKey.currentState!
-                        .validate()) {
-                      // Process data
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Processing Data',
-                          ),
-                        ),
-                      );
-                    }
+                GestureDetector(
+                  onDoubleTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
                   },
+                  child: PrimaryButton(
+                    text: 'Sign in',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Processing Data'),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 30.0),
                 const DividerWithText(

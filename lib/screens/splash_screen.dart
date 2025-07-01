@@ -1,5 +1,5 @@
+import 'package:expoloredz_flutter/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:expoloredz_flutter/screens/signup_screen.dart';
 import 'package:expoloredz_flutter/component/constants.dart';
 import 'package:expoloredz_flutter/component/logo_image.dart';
 
@@ -12,10 +12,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState
-    extends State<SplashScreen> {
+    extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 1500,
+      ), // Adjust duration as needed
+    )..repeat(); // Repeat the animation indefinitely
+
     Future.delayed(
       AppConstants.splashDuration,
       () {
@@ -24,12 +34,18 @@ class _SplashScreenState
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  const SignUpScreen(),
+                  const HomeScreen(),
             ),
           );
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,16 +59,27 @@ class _SplashScreenState
           children: [
             const LogoImage(height: 120),
             const SizedBox(height: 40),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: CircularProgressIndicator(
-                strokeWidth: 4,
-                valueColor:
-                    AlwaysStoppedAnimation<
-                      Color
-                    >(Colors.blue),
+            AnimatedBuilder(
+              animation: _animationController,
+              child: Image.asset(
+                'assets/logo_compas.png',
+                width: 50,
+                height: 50,
               ),
+              builder:
+                  (
+                    BuildContext context,
+                    Widget? child,
+                  ) {
+                    return Transform.rotate(
+                      angle:
+                          _animationController
+                              .value *
+                          2.0 *
+                          3.1415926535,
+                      child: child,
+                    );
+                  },
             ),
           ],
         ),

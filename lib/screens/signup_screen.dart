@@ -7,6 +7,7 @@ import 'package:expoloredz_flutter/component/primary_button.dart';
 import 'package:expoloredz_flutter/component/auth_navigation_text.dart';
 import 'package:expoloredz_flutter/component/divider_with_text.dart';
 import 'package:expoloredz_flutter/component/logo_image.dart';
+import 'package:expoloredz_flutter/screens/home_screen.dart';
 
 enum UserType { volunteer, organizer }
 
@@ -36,9 +37,6 @@ class _SignUpScreenState
   String? _passwordErrorText;
   String? _confirmPasswordErrorText;
 
-  UserType? _userType = UserType
-      .volunteer; // Default to volunteer
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -60,7 +58,7 @@ class _SignUpScreenState
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 32.0,
+              horizontal: 24.0,
             ),
             child: Column(
               mainAxisAlignment:
@@ -246,135 +244,88 @@ class _SignUpScreenState
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .center,
-                        children: [
-                          Expanded(
-                            child: RadioListTile<UserType>(
-                              title: const Text(
-                                'Volunteer',
-                              ),
-                              value: UserType
-                                  .volunteer,
-                              groupValue:
-                                  _userType,
-                              onChanged:
-                                  (
-                                    UserType?
-                                    value,
-                                  ) {
-                                    setState(() {
-                                      _userType =
-                                          value;
-                                    });
-                                  },
-                              activeColor:
-                                  AppConstants
-                                      .primaryColor,
-                            ),
-                          ),
-                          Expanded(
-                            child: RadioListTile<UserType>(
-                              title: const Text(
-                                'Organizer',
-                              ),
-                              value: UserType
-                                  .organizer,
-                              groupValue:
-                                  _userType,
-                              onChanged:
-                                  (
-                                    UserType?
-                                    value,
-                                  ) {
-                                    setState(() {
-                                      _userType =
-                                          value;
-                                    });
-                                  },
-                              activeColor:
-                                  AppConstants
-                                      .primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 20.0),
-                PrimaryButton(
-                  text: 'Sign up',
-                  onPressed: () {
-                    // Manually trigger validation for all fields to update error states
-                    setState(() {
-                      _emailErrorText =
-                          _emailController
-                              .text
-                              .isEmpty
-                          ? 'Please enter your email'
-                          : !RegExp(
-                              r'^[^@]+@[^@]+\.[^@]+',
-                            ).hasMatch(
-                              _emailController
-                                  .text,
-                            )
-                          ? 'Please enter a valid email'
-                          : null;
-                      _usernameErrorText =
-                          _usernameController
-                              .text
-                              .isEmpty
-                          ? 'Please enter a username'
-                          : _usernameController
-                                    .text
-                                    .length <
-                                3
-                          ? 'Username must be at least 3 characters'
-                          : null;
-                      _passwordErrorText =
-                          _passwordController
-                              .text
-                              .isEmpty
-                          ? 'Please enter a password'
-                          : _passwordController
-                                    .text
-                                    .length <
-                                6
-                          ? 'Password must be at least 6 characters'
-                          : null;
-                      _confirmPasswordErrorText =
-                          _confirmPasswordController
-                              .text
-                              .isEmpty
-                          ? 'Please confirm your password'
-                          : _confirmPasswordController
-                                    .text !=
-                                _passwordController
-                                    .text
-                          ? 'Passwords do not match'
-                          : null;
-                    });
-
-                    if (_formKey.currentState!
-                        .validate()) {
-                      // Process data
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Processing Data',
-                          ),
-                        ),
-                      );
-                    }
+                const SizedBox(height: 40.0),
+                GestureDetector(
+                  onDoubleTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const HomeScreen(),
+                      ),
+                    );
                   },
+                  child: PrimaryButton(
+                    text: 'Sign up',
+                    onPressed: () {
+                      // Manually trigger validation for all fields to update error states
+                      setState(() {
+                        _emailErrorText =
+                            _emailController
+                                .text
+                                .isEmpty
+                            ? 'Please enter your email'
+                            : !RegExp(
+                                r'^[^@]+@[^@]+\.[^@]+',
+                              ).hasMatch(
+                                _emailController
+                                    .text,
+                              )
+                            ? 'Please enter a valid email'
+                            : null;
+                        _usernameErrorText =
+                            _usernameController
+                                .text
+                                .isEmpty
+                            ? 'Please enter a username'
+                            : _usernameController
+                                      .text
+                                      .length <
+                                  3
+                            ? 'Username must be at least 3 characters'
+                            : null;
+                        _passwordErrorText =
+                            _passwordController
+                                .text
+                                .isEmpty
+                            ? 'Please enter a password'
+                            : _passwordController
+                                      .text
+                                      .length <
+                                  6
+                            ? 'Password must be at least 6 characters'
+                            : null;
+                        _confirmPasswordErrorText =
+                            _confirmPasswordController
+                                .text
+                                .isEmpty
+                            ? 'Please confirm your password'
+                            : _confirmPasswordController
+                                      .text !=
+                                  _passwordController
+                                      .text
+                            ? 'Passwords do not match'
+                            : null;
+                      });
+
+                      if (_formKey.currentState!
+                          .validate()) {
+                        // Process data
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Processing Data',
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 30.0),
                 const DividerWithText(
