@@ -24,7 +24,7 @@ class AppConstants {
     fontFamily: 'Roboto',
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
-    color: darkBlue,
+    color: secondaryColor,
   );
 
   // Sample data for volunteering opportunities (thoughts)

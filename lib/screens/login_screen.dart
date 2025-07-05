@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(24.0),
                       child: Column(
                         children: [
-                          const LogoImage(height: 128.0),
+                          const LogoImage(height: 80.0),
                           const SizedBox(height: 16.0),
                           Text(
                             'Welcome Back!',
@@ -73,50 +73,50 @@ class _LoginScreenState extends State<LoginScreen> {
                             key: _formKey,
                             child: Column(
                               children: [
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: 'Email',
-                        icon: Icons.email_outlined,
-                        errorText: _emailErrorText,
-                        onChanged: (value) {
-                          setState(() {
-                            _emailErrorText = _emailController.text.isEmpty
-                                ? 'Please enter your email'
-                                : !RegExp(
-                                    r'^[^@]+@[^@]+\.[^@]+',
-                                  ).hasMatch(value)
-                                ? 'Please enter a valid email'
-                                : null;
-                          });
-                        },
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      CustomTextField(
-                        controller: _passwordController,
-                        hintText: 'Password',
-                        icon: Icons.lock_outline,
-                        obscureText: true,
-                        errorText: _passwordErrorText,
-                        onChanged: (value) {
-                          setState(() {
-                            _passwordErrorText =
-                                _passwordController.text.isEmpty
-                                ? 'Please enter your password'
-                                : value.length < 6
-                                ? 'Password must be at least 6 characters'
-                                : null;
-                          });
-                        },
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                                CustomTextField(
+                                  controller: _emailController,
+                                  hintText: 'Email',
+                                  icon: Icons.email_outlined,
+                                  errorText: _emailErrorText,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _emailErrorText = _emailController.text.isEmpty
+                                          ? 'Please enter your email'
+                                          : !RegExp(
+                                              r'^[^@]+@[^@]+\.[^@]+',
+                                            ).hasMatch(value)
+                                          ? 'Please enter a valid email'
+                                          : null;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20.0),
+                                CustomTextField(
+                                  controller: _passwordController,
+                                  hintText: 'Password',
+                                  icon: Icons.lock_outline,
+                                  obscureText: true,
+                                  errorText: _passwordErrorText,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _passwordErrorText =
+                                          _passwordController.text.isEmpty
+                                          ? 'Please enter your password'
+                                          : value.length < 6
+                                          ? 'Password must be at least 6 characters'
+                                          : null;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
                 const SizedBox(height: 40.0),
                 GestureDetector(
                   onDoubleTap: () {
@@ -176,12 +176,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                 ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
+                  ),
                   SizedBox(height: screenHeight * 0.05),
                 ],
               ),

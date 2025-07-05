@@ -1,4 +1,4 @@
-import 'package:expoloredz_flutter/screens/opportunities_screen.dart';
+import 'package:expoloredz_flutter/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:expoloredz_flutter/component/constants.dart';
 import 'package:expoloredz_flutter/component/logo_image.dart';
@@ -20,14 +20,14 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500), // Adjust duration as needed
+      duration: const Duration(milliseconds: 2500), // Adjust duration as needed
     )..repeat(); // Repeat the animation indefinitely
 
     Future.delayed(AppConstants.splashDuration, () {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const OpportunitiesScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       }
     });

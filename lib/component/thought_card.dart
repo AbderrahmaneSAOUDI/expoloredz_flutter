@@ -174,19 +174,19 @@ class ThoughtCard extends StatelessWidget {
                   icon: Icons.thumb_up_alt_outlined,
                   label: 'Like',
                   onTap: onLike,
-                  color: Colors.green[700],
+                  color: Colors.blue[700],
                 ),
                 _ActionButton(
                   icon: Icons.volunteer_activism,
                   label: 'Opportunity',
                   onTap: onOpportunity,
-                  color: Colors.green[400],
+                  color: Colors.blue[400],
                 ),
                 _ActionButton(
                   icon: Icons.message_outlined,
                   label: 'Message',
                   onTap: onMessage,
-                  color: Colors.green[200],
+                  color: Colors.blue[200],
                 ),
               ],
             ),
@@ -215,8 +215,8 @@ class _ActionButton extends StatelessWidget {
     return OutlinedButton.icon(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        side: BorderSide(color: color ?? Colors.green),
-        foregroundColor: color ?? Colors.green,
+        side: BorderSide(color: color ?? Colors.blue),
+        foregroundColor: color ?? Colors.blue,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       ),
       onPressed: onTap,
